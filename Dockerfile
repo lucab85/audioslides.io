@@ -26,7 +26,7 @@ RUN apt-get update && \
         imagemagick && \
         rm -rf /var/lib/apt/lists/*
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt-get -y install nodejs npm && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt-get -y install nodejs && \
         rm -rf /var/lib/apt/lists/*
 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
