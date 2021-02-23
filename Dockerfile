@@ -1,4 +1,4 @@
-FROM elixir:1.5.2-slim
+FROM elixir:1.9.4-slim
 
 # Setup ENV
 ENV HOME=/opt/app \
@@ -10,13 +10,11 @@ ENV HOME=/opt/app \
     MIX_ENV=prod
 
 # Add package sources
-RUN sed -i "s/jessie main/jessie main contrib non-free/" /etc/apt/sources.list
-RUN echo "deb http://packages.cloud.google.com/apt gcsfuse-jessie main" | tee /etc/apt/sources.list.d/gcsfuse.list;
-RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list
+RUN sed -i "s/buster main/buster main contrib non-free/" /etc/apt/sources.list
+RUN echo "deb http://http.debian.net/debian buster-backports main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get update && \
         apt-get --allow-unauthenticated -y install \
         ffmpeg \
-        gcsfuse \
         make \
         git \
         g++ \
@@ -24,11 +22,19 @@ RUN apt-get update && \
         curl \
         build-essential \
         locales \
-        mysql-client \
         imagemagick && \
         curl -sL https://deb.nodesource.com/setup_8.x | bash && \
         apt-get -y install nodejs && \
         rm -rf /var/lib/apt/lists/*
+
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb http://packages.cloud.google.com/apt gcsfuse-buster main" | tee /etc/apt/sources.list.d/gcsfuse.list;
+RUN apt-get update && \
+        apt-get --allow-unauthenticated -y install \
+        gcsfuse \
+        mysql-client && \
+        rm -rf /var/lib/apt/lists/*
+
 
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
