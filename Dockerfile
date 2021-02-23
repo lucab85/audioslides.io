@@ -22,19 +22,19 @@ RUN apt-get update && \
         curl \
         build-essential \
         locales \
+	default-mysql-client \
         imagemagick && \
-        curl -sL https://deb.nodesource.com/setup_8.x | bash && \
-        apt-get -y install nodejs npm && \
+        rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt-get -y install nodejs npm && \
         rm -rf /var/lib/apt/lists/*
 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb http://packages.cloud.google.com/apt gcsfuse-buster main" | tee /etc/apt/sources.list.d/gcsfuse.list;
 RUN apt-get update && \
         apt-get --allow-unauthenticated -y install \
-        gcsfuse \
-        default-mysql-client && \
+        gcsfuse && \
         rm -rf /var/lib/apt/lists/*
-
 
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
