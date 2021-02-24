@@ -1,9 +1,9 @@
 steps:
 # Load images for cachig
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'pull', 'eu.gcr.io/$PROJECT_ID/audioslides-io:latest' ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'pull', 'eu.gcr.io/$PROJECT_ID/audioslides-io-test-runner:latest' ]
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'pull', 'eu.gcr.io/$PROJECT_ID/audioslides-io:latest' ]
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'pull', 'eu.gcr.io/$PROJECT_ID/audioslides-io-test-runner:latest' ]
 # Build test-runner image
 - name: 'gcr.io/cloud-builders/docker'
   args: [
@@ -34,5 +34,5 @@ images:
 - 'eu.gcr.io/$PROJECT_ID/audioslides-io:latest'
 - 'eu.gcr.io/$PROJECT_ID/audioslides-io:prod'
 - 'eu.gcr.io/$PROJECT_ID/audioslides-io-test-runner:latest'
-# Timeout 20min (Default 10min)
-timeout: 1200s
+# Timeout 40min (Default 10min)
+timeout: 2400s
